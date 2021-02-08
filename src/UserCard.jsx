@@ -5,11 +5,11 @@ const UserCard = (props) => {
 
     const {user} = props;
     const { id, name, company } = user;
-    console.log(user);
+    //console.log(user);
     let history = useHistory();
 
     return (
-        <div style={{ 
+        <div key={id} style={{ 
             backgroundColor: "grey", 
             margin: "10px", 
             padding: "15px", 

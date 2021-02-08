@@ -10,24 +10,26 @@ const User = () => {
 
     useEffect(() => {
         axios
-        .get(`https://jsonplaceholder.typicode.com/users/${id}`)
+        .get(`https://cors-anywhere.herokuapp.com/https://jsonplaceholder.typicode.com/users/${id}`)
         .then((res) => {
           const responseUser = res.data;
           setUserDetails(responseUser);
+          console.log(responseUser);
       });
-      // eslint-disable-next-line
-    }, []);
+    }, [id]);
 
-    const { id, name, username, email, address:{street, suite, city, zipcode, 
-        geo: {lat, lng}}, phone, website, company: {companyName, catchPhrase, bs} } = userDetails || {};
+    const { id:userId, name, username, email, address, phone, website, company } = userDetails || {};
+    const { street, suite, city, zipcode, geo } = address || {};
+    const { lat, lng } = geo || {};
+    const { name:companyName, catchPhrase, bs } = company || {};
 
     return (
-      <div>
+      <div key={userId}>
         {userDetails ? (
         <div> 
-            <h1> {`id: ${id}`} </h1> 
+            <h1> {`id: ${userId}`} </h1> 
             <h1> {`User name: ${name}`} </h1>
-            <h1> {`User company name: ${company.companyName}`} </h1>
+            <h1> {`User company name: ${companyName}`} </h1>
         </div>
         ) : (
             <CircularProgress />
